@@ -16,6 +16,4 @@ public class Persona : BaseEntity
     public TipoPersona TipoPersona { get; set; }
     public ICollection<Profesor> Profesores { get; set; }
     public ICollection<AlumnoMatriculaAsignatura> AlumnoMatriculaAsignaturas { get; set; }
-    public ICollection<CursoEscolar> CursosEscolares { get; set; }
-    public ICollection<Asignatura> Asignaturas { get; set; }
 }

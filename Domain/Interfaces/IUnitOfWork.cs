@@ -12,4 +12,6 @@ public interface IUnitOfWork
     ISexo Sexos { get; }
     ITipoPersona TipoPersonas { get; }
     ITipoAsignatura TipoAsignaturas { get; }
+
+    Task<int> SaveAsync();
 }

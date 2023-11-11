@@ -11,22 +11,22 @@ public class AlumnoMatriculaAsignaturaConfiguration : IEntityTypeConfiguration<A
         builder.ToTable("alumnoMatriculaAsignatura");
 
         builder
-            .HasOne(am => am.Persona)
-            .WithMany(p => p.AlumnoMatriculaAsignaturas)
-            .HasForeignKey(am => am.IdAlumnoFk);
+            .HasKey(a => new { a.IdCursoEscolarFk, a.IdAlumnoFk, a.IdAsignaturaFk });
 
         builder
-            .HasOne(am => am.CursoEscolar)
-            .WithMany(c => c.AlumnoMatriculaAsignaturas)
-            .HasForeignKey(am => am.IdCursoEscolarFk);
+            .HasOne(a => a.CursoEscolar)
+            .WithMany(u => u.AlumnoMatriculaAsignaturas)
+            .HasForeignKey(a => a.IdCursoEscolarFk);
 
         builder
-            .HasOne(am => am.Asignatura)
-            .WithMany(a => a.AlumnoMatriculaAsignaturas)
-            .HasForeignKey(am => am.IdAsignaturaFk);
+            .HasOne(a => a.Asignatura)
+            .WithMany(r => r.AlumnoMatriculaAsignaturas)
+            .HasForeignKey(a => a.IdAsignaturaFk);
 
         builder
-            .HasKey(am => new { am.IdAlumnoFk, am.IdCursoEscolarFk, am.IdAsignaturaFk });
+            .HasOne(a => a.Persona)
+            .WithMany(rt => rt.AlumnoMatriculaAsignaturas)
+            .HasForeignKey(a => a.IdAlumnoFk);
 
         builder.HasData(
             new AlumnoMatriculaAsignatura {Id = 1, IdAlumnoFk = 1, IdAsignaturaFk = 1, IdCursoEscolarFk = 1 },

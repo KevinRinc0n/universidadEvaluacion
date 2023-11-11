@@ -1,5 +1,4 @@
 using Application.Repository;
-using Domain.Entities;
 using Domain.Interfaces;
 using Persistence.Data;
 

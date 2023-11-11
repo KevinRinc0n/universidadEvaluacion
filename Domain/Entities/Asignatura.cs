@@ -13,6 +13,4 @@ public class Asignatura : BaseEntity
     public int IdGradoFk { get; set; }
     public Grado Grado { get; set; }
     public ICollection<AlumnoMatriculaAsignatura> AlumnoMatriculaAsignaturas { get; set; }
-    public ICollection<Persona> Personas { get; set; }
-    public ICollection<CursoEscolar> CursosEscolares { get; set; }
 }
