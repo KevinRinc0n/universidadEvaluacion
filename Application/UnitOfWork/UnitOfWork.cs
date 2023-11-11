@@ -15,6 +15,9 @@ public class UnitOfWork : IUnitOfWork, IDisposable
     private IGrado _grado;
     private IPersona _persona;
     private IProfesor _profesor;
+    private ISexo _sexo;
+    private ITipoPersona _tipoPersona;
+    private ITipoAsignatura _tipoAsignatura;
 
 
     public UnitOfWork(UniversityDbContext context)
@@ -106,6 +109,42 @@ public class UnitOfWork : IUnitOfWork, IDisposable
         }
     }
 
+    public ISexo Sexos
+    {
+        get
+        {
+            if (_sexo == null)
+            {
+                _sexo = new SexoRepository(_context);
+            }
+            return _sexo;
+        }
+    }
+
+    public ITipoPersona TipoPersonas
+    {
+        get
+        {
+            if (_tipoPersona == null)
+            {
+                _tipoPersona = new TipoPersonaRepository(_context);
+            }
+            return _tipoPersona;
+        }
+    }
+
+    public ITipoAsignatura TipoAsignaturas
+    {
+        get
+        {
+            if (_tipoAsignatura == null)
+            {
+                _tipoAsignatura = new TipoAsignaturaRepository(_context);
+            }
+            return _tipoAsignatura;
+        }
+    }
+    
 
     public async Task<int> SaveAsync()
     {

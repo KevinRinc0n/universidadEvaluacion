@@ -9,4 +9,7 @@ public interface IUnitOfWork
     IGrado Grados { get; }
     IPersona Personas { get; }
     IProfesor Profesores { get; }
+    ISexo Sexos { get; }
+    ITipoPersona TipoPersonas { get; }
+    ITipoAsignatura TipoAsignaturas { get; }
 }

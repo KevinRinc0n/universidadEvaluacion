@@ -1,6 +1,7 @@
 using System.Reflection;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using Persistence.Data.Configuration;
 
 namespace Persistence.Data;
 
@@ -18,10 +19,13 @@ public class UniversityDbContext : DbContext
     public DbSet<Grado> Grados { get; set; }
     public DbSet<Persona> Personas { get; set; }
     public DbSet<Profesor> Profesores { get; set; }
+    public DbSet<Sexo> Sexos { get; set; }
+    public DbSet<TipoPersona> TipoPersonas { get; set; }
+    public DbSet<TipoAsignatura> TipoAsignaturas { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());  
+        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
     }
 }
