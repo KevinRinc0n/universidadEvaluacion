@@ -1,3 +1,4 @@
+using ApiUniversidad.Dtos;
 using AutoMapper;
 using Domain.Entities;
 using Domain.Interfaces;
@@ -83,6 +84,51 @@ public class DepartamentoController : BaseApiController
         unitofwork.Departamentos.Remove(departamento);
         await unitofwork.SaveAsync();
         return NoContent();
+    }
+
+    [HttpGet("departamentoProfesor")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<DepartamentoProfDto>>> GetDepProf()
+    {
+        var departProfe = await unitofwork.Departamentos.DepartamentoProfeInforma();
+        return mapper.Map<List<DepartamentoProfDto>>(departProfe);
+    }
+
+    [HttpGet("asignaturaSinCurs")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<DepartamentoAsignaturaDto>>> GetAsingSinCurso()
+    {
+        var sinCurso = await unitofwork.Departamentos.AsignaturaSinCurso();
+        return mapper.Map<List<DepartamentoAsignaturaDto>>(sinCurso);
+    }
+
+    [HttpGet("profesDep")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> GetProfesDep()
+    {
+        var profesoresDep = await unitofwork.Departamentos.ProfesoresXDepP();
+        return Ok(profesoresDep);
+    }
+
+    [HttpGet("deptoSinProfesoress")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<DepartamentoDto>>> GetSinProfes()
+    {
+        var sinProfes = await unitofwork.Departamentos.DepSinProfes();
+        return mapper.Map<List<DepartamentoDto>>(sinProfes);
+    }
+
+    [HttpGet("depSinAsignaturaa")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<DepartamentoDto>>> GetSinAsignatura()
+    {
+        var sinAsignatura = await unitofwork.Departamentos.DepartamentosSinAsignaturas();
+        return mapper.Map<List<DepartamentoDto>>(sinAsignatura);
     }
 
     private ActionResult Notfound()

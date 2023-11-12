@@ -1,3 +1,6 @@
+using Application.UnitOfWork;
+using Domain.Interfaces;
+
 namespace ApiUniversidad.Extensions;
 
 public static class ApplicationServiceExtensions
@@ -10,4 +13,9 @@ public static class ApplicationServiceExtensions
             .AllowAnyMethod()      
             .AllowAnyHeader());     
     });
+
+    public static void AddAplicacionServices(this IServiceCollection services)
+    {
+        services.AddScoped<IUnitOfWork, UnitOfWork>(); 
+    }
 }

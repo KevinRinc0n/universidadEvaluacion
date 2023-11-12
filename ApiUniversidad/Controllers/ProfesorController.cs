@@ -1,3 +1,4 @@
+using ApiUniversidad.Dtos;
 using AutoMapper;
 using Domain.Entities;
 using Domain.Interfaces;
@@ -83,6 +84,78 @@ public class ProfesorController : BaseApiController
         unitofwork.Profesores.Remove(profesor);
         await unitofwork.SaveAsync();
         return NoContent();
+    }
+
+    [HttpGet("profesoresSinNumero")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<PersonaProfDto>>> GetSinNumero()
+    {
+        var sinNumero = await unitofwork.Personas.ProfesoresSinNumero();
+        return mapper.Map<List<PersonaProfDto>>(sinNumero);
+    }
+
+    [HttpGet("profesorDepartamento")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<ProfesorDepartamentoDto>>> GetProfDep()
+    {
+        var profesorDepa = await unitofwork.Personas.ProfesorDepartamento();
+        return mapper.Map<List<ProfesorDepartamentoDto>>(profesorDepa);
+    }
+
+    [HttpGet("departamentoProfesor")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<ProfesorDeptoDto>>> GetDepartamentoProf()
+    {
+        var departamentoProfe = await unitofwork.Profesores.DepartamentoProfesores();
+        return mapper.Map<List<ProfesorDeptoDto>>(departamentoProfe);
+    }
+
+    [HttpGet("profesorSinDep")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<ProfesorDeptoDto>>> GetProfSinDep()
+    {
+        var profeSinDepartamento = await unitofwork.Profesores.ProfesoresSinDepartamento();
+        return mapper.Map<List<ProfesorDeptoDto>>(profeSinDepartamento);
+    }
+
+    [HttpGet("profeSinAsing")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<ProfeSinAsingDto>>> GetProfeSin()
+    {
+        var profesorSinAsign = await unitofwork.Profesores.ProfesoresSinAsignatura();
+        return mapper.Map<List<ProfeSinAsingDto>>(profesorSinAsign);
+    }
+
+    [HttpGet("asignatuXProfe")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<object>))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<object>>> GetAsigXProfe()
+    {
+        var asignaturasXProfesor = await unitofwork.Profesores.AsignaturasXProfesor();
+        return Ok(asignaturasXProfesor);
+    }
+
+    [HttpGet("profesorSinDepartament")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<ProfesorDeptoDto>>> GetProfNoDep()
+    {
+        var profeSinDepartamento = await unitofwork.Profesores.ProfesoresSinDep();
+        return mapper.Map<List<ProfesorDeptoDto>>(profeSinDepartamento);
+    }
+
+    [HttpGet("profesorDepSinAsignatura")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<ProfesorDeptoDto>>> GetProDepNoAsign()
+    {
+        var profeSinAsignatura = await unitofwork.Profesores.ProfesoresDepSinAsignatura();
+        return mapper.Map<List<ProfesorDeptoDto>>(profeSinAsignatura);
     }
 
     private ActionResult Notfound()

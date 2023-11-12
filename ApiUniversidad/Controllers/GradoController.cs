@@ -85,6 +85,24 @@ public class GradoController : BaseApiController
         return NoContent();
     }
 
+    [HttpGet("asignaturaXGrado")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> GetasignaturaXGrado()
+    {
+        var asigXGrado = await unitofwork.Grados.asignaturasXGrados();
+        return Ok(asigXGrado);
+    }
+
+    [HttpGet("asignaturaXGrado40")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> GetasignaturaXGrado40()
+    {
+        var asigXGrado = await unitofwork.Grados.AsignaturasXGrados40();
+        return Ok(asigXGrado);
+    }
+
     private ActionResult Notfound()
     {
         throw new NotImplementedException();

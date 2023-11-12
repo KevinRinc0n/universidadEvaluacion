@@ -1,3 +1,4 @@
+using ApiUniversidad.Dtos;
 using AutoMapper;
 using Domain.Entities;
 using Domain.Interfaces;
@@ -83,6 +84,51 @@ public class AsignaturaController : BaseApiController
         unitofwork.Asignaturas.Remove(asignatura);
         await unitofwork.SaveAsync();
         return NoContent();
+    }
+
+    [HttpGet("asignaturaInformatica")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<AsignaturaDto>>> GetAsignaturas()
+    {
+        var asignaturaInformaticas = await unitofwork.Asignaturas.AsignaturasInformatica();
+        return mapper.Map<List<AsignaturaDto>>(asignaturaInformaticas);
+    }
+
+    [HttpGet("alumno2M")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<AsignaturaMDto>>> GetAlumnoM()
+    {
+        var alumno = await unitofwork.Asignaturas.AsignaturasAlumnoM();
+        return mapper.Map<List<AsignaturaMDto>>(alumno);
+    }
+
+    [HttpGet("profesorSinAsignatura")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<AsignaturaProfeDto>>> GetProfeSin()
+    {
+        var profesorSinAsign = await unitofwork.Asignaturas.ProfesoresSinAsignatura();
+        return mapper.Map<List<AsignaturaProfeDto>>(profesorSinAsign);
+    }
+
+    [HttpGet("matriculadosXCurso")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<object>>> GetmatriculadosXCurso()
+    {
+        var alumnosMatriculadosXCurso = await unitofwork.AlumnoMatriculaAsignaturas.AlumnosMatriculados();
+        return Ok(alumnosMatriculadosXCurso);
+    }
+
+    [HttpGet("asignaturaNoProfe")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<AsignaturaSinDto>>> GetAsignaturaSinProfe()
+    {
+        var asignaturaSinProf = await unitofwork.Asignaturas.AsignaturaSinProfe();
+        return mapper.Map<List<AsignaturaSinDto>>(asignaturaSinProf);
     }
 
     private ActionResult Notfound()

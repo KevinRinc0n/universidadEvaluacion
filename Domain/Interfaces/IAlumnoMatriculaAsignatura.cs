@@ -4,5 +4,5 @@ namespace Domain.Interfaces;
 
 public interface IAlumnoMatriculaAsignatura : IGenericRepository<AlumnoMatriculaAsignatura>
 {
-    
+    Task<IEnumerable<object>> AlumnosMatriculados();
 }
